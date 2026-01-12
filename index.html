@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    *{box-sizing:border-box;font-family:Arial;}
+    body{
+      margin:0;height:100vh;display:flex;
+      justify-content:center;align-items:center;
+      background:#f2f2f2;
+    }
+    .box{
+      width:90%;max-width:380px;
+      background:#fff;padding:30px;
+      border-radius:12px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.2);
+      text-align:center;
+    }
+    h2{margin-bottom:25px;}
+    .input-field{position:relative;margin-bottom:20px;}
+    input{
+      width:100%;padding:12px 40px;
+      border:none;border-bottom:1px solid #ccc;
+      outline:none;font-size:16px;
+    }
+    .left{position:absolute;left:10px;top:50%;transform:translateY(-50%);}
+    .right{position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;}
+    button{
+      width:100%;padding:12px;border:none;
+      border-radius:25px;
+      background:linear-gradient(90deg,#4ac1ff,#e85cff);
+      color:white;font-size:16px;font-weight:bold;
+      cursor:pointer;
+    }
+    a{display:block;margin-top:15px;color:#4ac1ff;font-weight:bold;text-decoration:none;}
+  </style>
+</head>
+
+<body>
+<div class="box">
+  <h2>Login</h2>
+
+  <div class="input-field">
+    <span class="left">📧</span>
+    <input type="email" id="email" placeholder="Email">
+  </div>
+
+  <div class="input-field">
+    <span class="left">🔒</span>
+    <input type="password" id="password" placeholder="Password">
+    <span class="right" id="toggle">👁</span>
+  </div>
+
+  <button id="loginBtn">LOGIN</button>
+  <a href="signup.html">Create New Account</a>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQP80vsmN3eR4q3vcbBygcXWr2Z2hGHSk",
+    authDomain: "planbet-2cb89.firebaseapp.com",
+    projectId: "planbet-2cb89"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  loginBtn.onclick = () => {
+    auth.signInWithEmailAndPassword(email.value, password.value)
+    .then(()=> window.location.href="dashboard.html")
+    .catch(e=> alert(e.message));
+  };
+
+  toggle.onclick = ()=>{
+    password.type = password.type==="password"?"text":"password";
+  };
+</script>
+</body>
+</html>
