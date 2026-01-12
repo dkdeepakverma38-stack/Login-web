@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef2ff;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+    }
+
+    .main-box{
+      width:90%;
+      max-width:400px;
+      background:#fff;
+      padding:25px;
+      border-radius:15px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.2);
+      text-align:center;
+    }
+
+    img{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      object-fit:cover;
+      margin-bottom:10px;
+    }
+
+    h2{margin:10px 0;}
+
+    button{
+      padding:12px;
+      width:100%;
+      border:none;
+      border-radius:25px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    .logout{
+      background:#ff4d4d;
+      color:#fff;
+    }
+
+    /* PAYMENT LAYOUT */
+    .payment-box{
+      margin-top:25px;
+      padding:20px;
+      border-radius:12px;
+      background:#f7f7f7;
+      border:1px solid #ddd;
+    }
+
+    .pay-btn{
+      background:linear-gradient(90deg,#00c853,#64dd17);
+      color:white;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="main-box">
+
+  <!-- USER PHOTO -->
+  <img src="https://i.imgur.com/6VBx3io.png">
+
+  <h2>Welcome 🎉</h2>
+
+  <button class="logout" onclick="logout()">Logout</button>
+
+  <!-- PAYMENT SECTION -->
+  <div class="payment-box">
+    <h3>Make Payment</h3>
+    <p>Pay ₹5 using PhonePe</p>
+    <button class="pay-btn" onclick="payNow()">Pay ₹5</button>
+  </div>
+
+</div>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQP80vsmN3eR4q3vcbBygcXWr2Z2hGHSk",
+    authDomain: "planbet-2cb89.firebaseapp.com",
+    projectId: "planbet-2cb89"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // LOGOUT
+  function logout(){
+    auth.signOut().then(()=>{
+      window.location.href="index.html";
+    });
+  }
+
+  // PAYMENT BUTTON
+  function payNow(){
+    // UPI payment link
+    const upiLink =
+      "upi://pay?pa=9794408205@paytm&pn=Test&tn=DashboardPayment&am=5&cu=INR";
+
+    // Open UPI app
+    window.location.href = upiLink;
+
+    // ⚠️ Page crash avoid: no alert after redirect
+    // User manually check success/failure in PhonePe app
+  }
+</script>
+
+</body>
+</html>
